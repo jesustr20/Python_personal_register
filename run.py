@@ -1,0 +1,3 @@
+import logica
+
+logica.selecciona()
