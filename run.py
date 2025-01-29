@@ -1,3 +1,3 @@
-import logica
+import registro
 
-logica.selecciona()
+registro.seleccion()

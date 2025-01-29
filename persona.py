@@ -1,3 +1,5 @@
+import os
+
 class Persona():
     def __init__(self,nombre,edad,dni):
         self.nombre = nombre
@@ -5,49 +7,35 @@ class Persona():
         self.dni = dni
 
 
-class PersonaAlum(Persona):
-    def __init__(self,nombre,edad,dni,n1,n2,n3,n4,nmaxi,nmini,prome):
+class Estudiante(Persona):
+    def __init__(self,nombre,edad,dni,notas, nmaxi,nmini,prome):
         Persona.__init__(self,nombre,edad,dni)
-        self.n1 = n1
-        self.n2 = n2
-        self.n3 = n3
-        self.n4 = n4
+        self.notas = notas #Lista
         self.nmaxi = nmaxi
         self.nmini = nmini
         self.prome = prome
 
-
-class rGeneral():
-    def __init__(self,estudiante=None,profesor=None):
-        self.estudiante = estudiante
-        self.profesor = profesor
-
-    def rtotal(self,rep):
-        try:
-            rtotal = open(rep,'w')
-            estudiante = open(self.estudiante,'r')
-            profesor = open(self.profesor,'r')
-            rtotal.write("ESTUDIANTES...:\n")
-            for lineaEst in estudiante.readlines():
-                rtotal.write(f"{lineaEst}")
-            rtotal.write("\n\nPROFESORES...:\n")
-            for lineaProfe in profesor.readlines():
-                rtotal.write(f"{lineaProfe}")
-        except Exception as e:
-            print("error: "+str(e))
-        else:
-            rtotal.close()
-            #Me mostrara los reportes generales
-        try:
-            file = open(rep,'r')
-            for linea in file.readlines():
-                print(linea)
-        except Exception as e:
-            print("error: "+str(e))
-        else:
-            file.close()
-
 #Agregara datos del docente
+
+class TypeFile:
+    def __init__(self, name_file, objeto, tipo_persona, carpeta_principal = "registros"):
+        self.name_file = name_file
+        self.objeto = objeto
+        self.tipo_persona = tipo_persona
+        self.carpeta_principal = carpeta_principal
+        
+    def save_file(self):
+
+        carpeta = os.path.join(self.carpeta_principal, self.tipo_persona)
+        os.makedirs(carpeta, exist_ok=True)
+        ruta_archivo = os.path.join(carpeta, self.name_file)
+        
+        with open(ruta_archivo, "a", encoding="utf-8") as archivo:
+            valores = list(vars(self.objeto).values())
+            linea = ",".join(map(str, valores))+"\n"
+            archivo.write(linea)
+        
+
 class Archivo():
     def __init__(self,nombre_archivo):
         self.nombre_archivo = nombre_archivo
@@ -68,7 +56,7 @@ class Archivo():
     def agregarAlumno(self,alum):
         try:
             file = open(self.nombre_archivo,'a')
-            texto_agregar = "{},{},{},{},{},{},{},{},{},{}\n".format(alum.nombre,alum.edad,alum.dni,alum.n1,alum.n2,alum.n3,alum.n4,alum.nmaxi,alum.nmini,alum.prome)
+            texto_agregar = "{},{},{},{},{},{},{}\n".format(alum.nombre,alum.edad,alum.dni,alum.nota,alum.nmaxi,alum.nmini,alum.prome)
             file.write(texto_agregar)
         except Exception as e:
             print("error: ",str(e))
