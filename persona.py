@@ -1,24 +1,28 @@
 import os
 
-class Persona():
-    def __init__(self,nombre,edad,dni):
+class Persona:
+    def __init__(self,nombre: str,edad: int,dni: str):
         self.nombre = nombre
         self.edad = edad
         self.dni = dni
 
 
 class Estudiante(Persona):
-    def __init__(self,nombre,edad,dni,notas, nmaxi,nmini,prome):
-        Persona.__init__(self,nombre,edad,dni)
-        self.notas = notas #Lista
+    def __init__(self,nombre: str, edad:int, dni:int, notas: list, nmaxi:int, nmini:int, prome:float):
+        super().__init__(nombre,edad,dni)
+        self.notas = notas #Lista de notas
         self.nmaxi = nmaxi
         self.nmini = nmini
         self.prome = prome
 
+class Profesor(Persona):
+    def __init__(self, nombre:str, edad:int, dni:int):
+        super().__init__(nombre, edad, dni)            
+
 #Agregara datos del docente
 
 class TypeFile:
-    def __init__(self, name_file, objeto, tipo_persona, carpeta_principal = "registros"):
+    def __init__(self, name_file: str, objeto, tipo_persona: str, carpeta_principal: str = "registros"):
         self.name_file = name_file
         self.objeto = objeto
         self.tipo_persona = tipo_persona

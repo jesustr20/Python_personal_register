@@ -1,4 +1,4 @@
-from persona import Persona, Archivo, Estudiante, TypeFile
+from persona import Profesor, Estudiante, TypeFile
 import sys
 import os
 
@@ -23,7 +23,7 @@ def registrar_persona(tipo_persona):
     dni = int(input("Ingrese su Dni: "))
 
     if tipo_persona == "docente":
-        persona = Persona(nombre, edad, dni)
+        persona = Profesor(nombre, edad, dni)
     else:
         notas = []
         print("\nRegistro de Notas - Ingresa tus 4 notas:")
